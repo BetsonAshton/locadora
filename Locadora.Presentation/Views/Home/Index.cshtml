@@ -1,0 +1,34 @@
+﻿@using Newtonsoft.Json;
+@using Locadora.Presentation.Models
+
+@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@{
+    var data = User.Identity.Name;
+
+    var identityViewModel = JsonConvert.DeserializeObject<IdentityViewModel>(data);
+}
+
+
+<div class="card text-center">
+  <div class="card-header">
+  <h2> <strong>Locadora de Filmes</strong> </h2>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Seja Bem Vindo!</h5>
+
+    
+    <div>@identityViewModel.Nome</div>
+
+
+    <a href="/Usuario/MinhaConta" class="btn btn-primary">Acesse sua conta</a>
+
+    
+     
+  </div>
+  <div class="card-footer text-body-secondary">
+    Locadora Ltda
+  </div>
+</div>

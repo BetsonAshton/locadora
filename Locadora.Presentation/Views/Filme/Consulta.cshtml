@@ -1,0 +1,67 @@
+﻿@model Locadora.Presentation.Models.FilmeConsultaViewModel
+
+@{
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-body">
+
+            <h5>Consulta de Filmes</h5>
+            <p>Consulte os filmes pelo nome e período de lançamento.</p>
+            <hr />
+
+            @using(Html.BeginForm("Consulta", "Filme", FormMethod.Get))
+            {
+                <div class="row mb-2">
+                    <div class="col-md-4">
+                        
+                        <span class="text-danger">
+                            @Html.ValidationMessageFor(model => model.Nome)
+                        </span>
+                    </div>
+                  
+                </div>
+            }
+
+            @if (Model != null && Model.Resultado != null && Model.Resultado.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table id="grid_dados" class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nome do Filme</th>
+                                <th>Disponibilidade</th>
+                                <th>Categoria do Filme</th>
+                                <th>Operações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Resultado)
+                            {
+                                <tr>
+                                    <td>@item.Nome</td>
+                                    <td>@item.Tipo</td>
+                                    <td>@item.Categoria</td>
+                                    
+                                    <td>
+                                        <a href="/Filme/Edicao/@item.Id"
+                                            class="btn btn-sm btn-outline-primary">
+                                            Editar
+                                        </a>
+                                        <a href="/Filme/Exclusao/@item.Id"
+                                            class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('Deseja realmente excluir este Filme?');">
+                                            Excluir
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
